@@ -1,0 +1,44 @@
+.book-table-wrapper {
+  padding: 50px;
+  font-size:11px;
+}
+
+.book-table-wrapper > table {
+  border: solid black 1px;
+  table-layout: fixed;
+  width: 100%;
+
+}
+
+.book-table-wrapper tr {
+  border: solid black 1px;
+}
+
+.book-table-wrapper tr:nth-child(odd) {
+  background-color: blanchedalmond;
+}
+
+.book-table-wrapper td, .book-table-wrapper th {
+  height: 20px;
+  width: 14%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  display: inline-block;
+  text-align: left;
+}
+
+
+.pagination {
+
+  text-align: center;
+  width: 200px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.book-viewer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
