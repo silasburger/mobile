@@ -1,26 +1,39 @@
-import { GOT_BOOKS, SET_CURR_PAGE, SET_LOADING } from '../actions/actionTypes';
+import { GOT_ADS, GOT_AD, SET_LOADING, POSTED_AD } from '../actions';
 
-const initialState = {books: [], bookCount: 0, currPage: 0, loadingBooks: false};
+const initialState = {ads: [], loadingAds: false, adsFresh: false, loadingAd: false};
 
 const rootReducer = (state = initialState, action) => {
   switch (action.type) {
-    case GOT_BOOKS:
+    case GOT_ADS:
       return {
         ...state,
-        books: action.books,
-        bookCount: action.count,
-        loadingBooks: false,
+        ads: action.ads,
+        loadingAds: false,
+        adsFresh: true,
       };
-    case SET_CURR_PAGE:
-      return {
-        ...state,
-        currPage: action.page,
-      }
     case SET_LOADING:
+        let { loadingAds, loadingAd } = state; 
+        if (action.resource === 'ads') {
+            loadingAds = true
+        } else if (action.resource === 'ad') {
+            loadingAd = true
+        }
       return {
         ...state,
-        loadingBooks: true,
-      }
+        loadingAds,
+        loadingAd,
+      };
+    case POSTED_AD:
+      return {
+        ...state,
+        postedAd: state.success,
+        adsFresh: false,
+      };
+    case GOT_AD:
+      return {
+        ...state,
+        loadingAd: false,
+      };
     default:
       return state;
   }

@@ -1,4 +1,5 @@
 import axios from 'axios';
+import * as uuid from 'uuid';
 
 class AdService {
     static async getAds() {
@@ -13,12 +14,15 @@ class AdService {
             window.alert('error', {error});
         }
     }
-    static async postAd() {
-        
+    static async postAd(adData) {
         try {
             const res = await axios({
                 method: 'post',
-                url: 'localhost:3000/posts',
+                url: 'http://localhost:3000/posts',
+                data: {
+                    ...adData, 
+                    id: uuid.v1()
+                }
             });
             return res;
         } catch(error) {
@@ -26,11 +30,10 @@ class AdService {
         }
     }
     static async getAd(id) {
-        
         try {
             const res = await axios({
                 method: 'get',
-                url: `localhost:3000/post/${id}`,
+                url: `http://localhost:3000/posts/${id}`,
             });
             return res;
         } catch(error) {

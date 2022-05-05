@@ -1,14 +1,34 @@
 import './App.css';
-import { Routes, Route } from 'react-router-dom';
-import Books from '../containers/Books';
+import { useEffect } from 'react';
+import { Routes, Route, Navigate } from 'react-router-dom';
+import AdsPage from '../containers/AdsPage';
+import AdPage from '../components/AdPage';
+import NewAdPage from '../containers/NewAdPage';
+//import NotFound from '../components/NotFound';
+import Header from '../components/Header';
+import { getAds, postAd, getAd} from '../actions';
+import { connect } from 'react-redux';
 
-function App() {
-  return (
-    <Routes>
-      <Route exact path="/books" element={<Books />} />
-      <Route path="*" element={<Books />} />
-    </Routes>
-  );
+function App({ads, postAd, getAds, getAd, adsFresh, loadingAds, loadingAd}) {
+    return (
+        <>   
+            <Header />
+            <Routes>
+                <Route exact path="/" element={<Navigate to="ads" replace />} />
+                <Route path="*" element={<Navigate to="ads" replace />} />
+                <Route path="ads" element={<AdsPage ads={ads} getAds={getAds} adsFresh={adsFresh} loadingAds={loadingAds} />} />
+                <Route exact path="ads/:adId" element={<AdPage getAd={getAd} loadingAd={loadingAd} adsFresh={adsFresh} />} />
+                <Route exact path="ads/new" element={<NewAdPage postAd={postAd} />} /> 
+            </Routes>
+        </>
+    );
 }
 
-export default App;
+const mapStateToProps = (state) => ({
+    ads: state.ads,
+    adsFresh: state.adsFresh,
+    loadingAds: state.loadingAds,
+    loadingAd: state.loadingAd,
+});
+
+export default connect(mapStateToProps, {postAd, getAds, getAd})(App);
