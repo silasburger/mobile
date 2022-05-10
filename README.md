@@ -3,40 +3,50 @@
 **Step 1:** Clone this repo
    
 ```bash
-$ git clone git@github.com:silasburger/getground-takehome.git
+$ git clone git@github.com:silasburger/mobile-takehome.git
 
 ```
 
 **Step 2:** Install dependencies
 
+You should have yarn and python3 installed.
+
 ```bash
-$ cd getground-books
+$ cd mobile-react
 $ yarn install
-
 ```
-
-**Step 2:** Startup frontend
 
 ```bash
-$ yarn start (in getground-books dir)
-
+$ cd mobile-flask
+$ python3 -m venv venv
+$ pip3 install -r requirements.txt
 ```
+
+**Step 2:** Startup app
+```bash
+$ cd mobile-flask
+$ python3 seed.py
+$ python3 app.py
+```
+
+```bash
+$ cd mobile-react
+$ yarn start
+```
+
 **Step 5: Go to http://localhost:3000 in browser**
 
 ## Component Heirarchy 
 
 ```mermaid
   graph TD;
-      components/App-->B[containers/Books];
-      B-->components/BookTable;
-      B-->components/Pagination;
+      A[containers/App]-->B[components/AdsPage];
+      A-->components/AdPage;
+      A-->components/NewAdPage;
 ```
 
 ## Future Improvements
-- Add filter input
+- Add tests
 - Improve UI 
-- Retreiving books in batches and handling some pagination logic on the frontend
-  - This would be useful for expensive queries
-- Further testing
-  - Testing the actions, reducer, and container is a good place to improve testing
+- Add pagination
 
