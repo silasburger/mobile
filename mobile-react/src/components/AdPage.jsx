@@ -24,13 +24,13 @@ const AdPage = ({getAd, loadingAd}) => {
     return (
         <div className="ad-page page-wrapper h-100"> 
             {loadingAd ? "Loading..." :
-                <div className="card mb-3 h-100">
+                <div className="card mb-3 h-100 border-0">
                     <div className="row g-0">
-                        <div className="col-md-4">
-                            <img src={ad.url} className="img-fluid rounded-start img-thumbnail" alt="car" />
+                        <div className="col-md-3">
+                            <img src={ad.url} className="img-fluid rounded-start" alt="car" />
                         </div>
-                        <div className="col-md-8">
-                            <div className="card-body">
+                        <div className="col-md-9">
+                            <div className="card-body ps-5">
                                 <h5 className="card-title">{`${ad.year} ${ad.make} ${ad.model}`}</h5>
                                 <p className="card-text"><small className="text-muted">€ {ad.price}</small></p>
                                 <p className="card-text">{ad.description}</p>
