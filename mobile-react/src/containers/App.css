@@ -1,0 +1,17 @@
+.page-wrapper {
+  margin-left: 5%;
+  margin-right: 5%;
+  padding: 20px;
+}
+
+html,
+body,
+.root,
+.page-wrapper {
+  height: 100%;
+}
+
+
+.ad-row {
+  margin: 10px 0;
+}

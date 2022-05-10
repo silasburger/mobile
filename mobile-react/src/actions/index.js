@@ -2,10 +2,10 @@ import AdService from '../services';
 
 // Async actions
 export const getAds = () => {
-    return async function(dispatch, getState) {
+    return async function(dispatch) {
         dispatch(setLoading('ads'))
         const res = await AdService.getAds()
-        const {data: ads} = res;
+        const {data: { posts: ads}} = res;
         dispatch(gotAds(ads))
     }
 }
@@ -18,7 +18,7 @@ export const getAd = (adId) => {
         } else {
             dispatch(setLoading('ad'));
             const res = await AdService.getAd(adId);
-            const {data: ad} = res;
+            const {data: {post: ad}} = res;
             dispatch(gotAd());
             return ad;
         }
@@ -27,8 +27,9 @@ export const getAd = (adId) => {
 
 export const postAd = (newAd) => {
     return async function(dispatch) {
-        await AdService.postAd(newAd);
+        const ad = await AdService.postAd(newAd);
         dispatch({type: POSTED_AD, success: true});
+        return ad;
     }
 }
 

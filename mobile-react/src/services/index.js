@@ -1,5 +1,5 @@
 import axios from 'axios';
-import * as uuid from 'uuid';
+import {URL} from '../constants'
 
 class AdService {
     static async getAds() {
@@ -7,37 +7,39 @@ class AdService {
         try {
             const res = await axios({
                 method: 'get',
-                url: 'http://localhost:3000/posts',
+                url: URL + '/posts',
             });
             return res;
         } catch(error) {
-            window.alert('error', {error});
+            window.alert('error', error);
         }
     }
     static async postAd(adData) {
         try {
             const res = await axios({
-                method: 'post',
-                url: 'http://localhost:3000/posts',
-                data: {
-                    ...adData, 
-                    id: uuid.v1()
-                }
+                method: 'put',
+                url: URL + '/posts',
+                data: adData, 
             });
             return res;
         } catch(error) {
-            window.alert('error', {error});
+            const message = error.response.data?.error;
+            if(message) {
+                window.alert(message);
+            } else {
+                window.alert(error)
+            }   
         }
     }
     static async getAd(id) {
         try {
             const res = await axios({
                 method: 'get',
-                url: `http://localhost:3000/posts/${id}`,
-            });
+                url: URL + '/posts/' + id,
+            })
             return res;
         } catch(error) {
-            window.alert('error', {error});
+            window.alert('error', error);
         }
     }
 }

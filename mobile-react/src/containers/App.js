@@ -1,10 +1,8 @@
 import './App.css';
-import { useEffect } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
-import AdsPage from '../containers/AdsPage';
+import AdsPage from '../components/AdsPage';
 import AdPage from '../components/AdPage';
-import NewAdPage from '../containers/NewAdPage';
-//import NotFound from '../components/NotFound';
+import NewAdPage from '../components/NewAdPage';
 import Header from '../components/Header';
 import { getAds, postAd, getAd} from '../actions';
 import { connect } from 'react-redux';
