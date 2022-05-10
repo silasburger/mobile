@@ -3,7 +3,7 @@
 **Step 1:** Clone this repo
    
 ```bash
-$ git clone git@github.com:silasburger/mobile-takehome.git
+$ git clone git@github.com:silasburger/mobile.git
 
 ```
 
