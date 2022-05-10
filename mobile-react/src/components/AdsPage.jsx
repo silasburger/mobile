@@ -16,11 +16,12 @@ const AdsPage = ({ ads, getAds, loadingAds }) => {
 
     const createRows = () => {
         let rows = [];
+        let reversedAds = [...ads].reverse()
         for(let i = 0; i < ads.length; i++) {
             if (i % 2 === 0) {
                 rows.push([]);
             }
-            rows[rows.length - 1].push(ads[i]);
+            rows[rows.length - 1].push(reversedAds[i]);
         }
         return rows
     }
