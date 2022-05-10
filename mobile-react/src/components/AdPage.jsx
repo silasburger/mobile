@@ -47,5 +47,6 @@ const AdPage = ({getAd, loadingAd}) => {
 export default AdPage;
 
 AdPage.propTypes = {
-    postAd: PropTypes.func,
+    loadingAd: PropTypes.bool,
+    getAd: PropTypes.func,
 }
