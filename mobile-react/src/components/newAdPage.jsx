@@ -3,7 +3,7 @@ import React, { useState, useMemo, useRef, useEffect } from 'react';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import axios from 'axios';
-import {URL, VALIDATION_CONSTRAINTS, FORM_INITIAL_STATE, MAKES} from '../constants';
+import {URL, VALIDATION_CONSTRAINTS, FORM_INITIAL_STATE, MAKES, PLACE_HOLDER_URL} from '../constants';
 import * as uuid from 'uuid';
 import { useNavigate } from "react-router-dom";
 
@@ -26,30 +26,32 @@ const NewAdPage = ({postAd}) => {
     };
 
     const urlInput = useRef(null)
-    useEffect(() => {
-        urlInput.current.setCustomValidity(VALIDATION_CONSTRAINTS.contentType[1]);
-    }, []);
     
     /**
      * debounced function to validation the url
      */
     const urlHandleChange = async () => {
-        const beginningRegex = VALIDATION_CONSTRAINTS.beginning[0];
-        if(beginningRegex.test(urlInput.current.value) === false) {
-            urlInput.current.setCustomValidity(VALIDATION_CONSTRAINTS.beginning[1])    
-        }
-        try{    
-            const res = await axios.get(URL + '/image?url=' + urlInput.current.value)
-            const contentType = res.headers['content-type']; 
-            const contentTypeRegex = VALIDATION_CONSTRAINTS.contentType[0];
-            if(contentTypeRegex.test(contentType)) {
-                urlInput.current.setCustomValidity('');
-            }
-        } catch (err) {
-            urlInput.current.setCustomValidity(VALIDATION_CONSTRAINTS.contentType[1])
-        }
-        finally {
+        if(urlInput.current.value === '') {
+            urlInput.current.setCustomValidity('');
             urlInput.current.reportValidity();
+        } else {
+             const beginningRegex = VALIDATION_CONSTRAINTS.beginning[0];
+            if(beginningRegex.test(urlInput.current.value) === false) {
+                urlInput.current.setCustomValidity(VALIDATION_CONSTRAINTS.beginning[1])    
+            }
+            try{    
+                const res = await axios.get(URL + '/image?url=' + urlInput.current.value)
+                const contentType = res.headers['content-type']; 
+                const contentTypeRegex = VALIDATION_CONSTRAINTS.contentType[0];
+                if(contentTypeRegex.test(contentType)) {
+                    urlInput.current.setCustomValidity('');
+                }
+            } catch (err) {
+                urlInput.current.setCustomValidity(VALIDATION_CONSTRAINTS.contentType[1])
+            }
+            finally {
+                urlInput.current.reportValidity();
+            }
         }
     }
     const debouncedChangeHandler = useMemo(() => debounce(urlHandleChange, handleChange, 1000), []); 
@@ -57,7 +59,15 @@ const NewAdPage = ({postAd}) => {
     const navigate = useNavigate();
     const handleSubmit = async (event) => {
         event.preventDefault();
-        const { data: { id } } = await postAd(formState); 
+        let url = formState.url; 
+        if(!formState.url) {
+            url = PLACE_HOLDER_URL;
+        }
+        const formData = {
+            ...formState, 
+            url,
+        };
+        const { data: { id } } = await postAd(formData); 
         if(id) {
             navigate('/ads/' + id)
         }
@@ -86,7 +96,8 @@ const NewAdPage = ({postAd}) => {
 
                 <Form.Group className="mb-3" controlId="url">
                     <Form.Label>URL</Form.Label>
-                    <Form.Control ref={urlInput} name="url" onChange={debouncedChangeHandler} value={formState['url']} type="input" placeholder="Enter url" required/>
+                    <Form.Control ref={urlInput} name="url" onChange={debouncedChangeHandler} value={formState['url']} type="input" placeholder="Enter url"/>
+                    <Form.Text className="text-muted">The URL field can be left empty</Form.Text>
                 </Form.Group>
 
                 <Form.Group className="mb-3" controlId="price">

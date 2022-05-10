@@ -37,10 +37,10 @@ const AdsPage = ({ ads, getAds, loadingAds }) => {
                                 <Col key={uuid.v4()} className="m-10" sm={6} >
                                     <Card bg="light"> 
                                         <Card.Body className="p-3">
-                                            <Card.Title>{`${year} ${make} ${model}`}</Card.Title>
+                                            <Card.Title className="text-truncate">{`${year} ${make} ${model}`}</Card.Title>
                                             <Card.Subtitle className="mb-2 text-muted">€{price}</Card.Subtitle>
                                             <Card.Title></Card.Title>
-                                            <Card.Text>{description}</Card.Text>
+                                            <Card.Text className="text-truncate">{description}</Card.Text>
                                             <Button onClick={() => handleClick(id)}>View Details</Button>
                                         </Card.Body>
                                     </Card>

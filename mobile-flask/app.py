@@ -10,7 +10,7 @@ import requests
 
 app = Flask(__name__)
 app.config['MONGODB_SETTINGS'] = {
-    'db': 'my_db',
+    'db': 'mini_mobile',
     'host': 'localhost',
     'port': 27017
 }
@@ -51,11 +51,8 @@ def query_record(post_id):
 @app.route('/posts', methods=['GET'])
 def query_records():
     posts = Post.objects()
-    if not posts:
-        return jsonify({'error': 'data not found'})
-    else:
-        res = {"posts": [post.to_json() for post in posts]}
-        return jsonify(res)
+    res = {"posts": [post.to_json() for post in posts]}
+    return jsonify(res)
 
 @app.route('/posts', methods=['PUT'])
 def create_record():
@@ -77,7 +74,11 @@ def create_record():
 @app.route('/image', methods=['GET'])
 def request_image():
     url = request.args['url']
-    r = requests.get(url)
+    headers = {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.102 Safari/537.36'}
+    r = requests.get(url, headers=headers)
+    print(r.headers['content-type'])
+    print(r.status_code)
+    import pdb; pdb.set_trace()
     return Response(
         status=r.status_code,
         content_type=r.headers['content-type'])

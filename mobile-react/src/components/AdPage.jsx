@@ -1,7 +1,6 @@
 import PropTypes from 'prop-types';
 import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import { Row, Col, Container, Card} from 'react-bootstrap';
 
 const AdPage = ({getAd, loadingAd}) => {
     const adId = useParams().adId;
@@ -27,7 +26,7 @@ const AdPage = ({getAd, loadingAd}) => {
                 <div className="card mb-3 h-100 border-0">
                     <div className="row g-0">
                         <div className="col-md-3">
-                            <img src={ad.url} className="img-fluid rounded-start" alt="car" />
+                            <img src={ad.url} className="img-fluid rounded" alt="car" />
                         </div>
                         <div className="col-md-9">
                             <div className="card-body ps-5">
