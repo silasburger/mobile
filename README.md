@@ -9,7 +9,7 @@ $ git clone git@github.com:silasburger/mobile.git
 
 **Step 2:** Install dependencies
 
-You should have yarn and python3 installed.
+You should have yarn, mongodb, and python3 installed
 
 ```bash
 $ cd mobile-react
