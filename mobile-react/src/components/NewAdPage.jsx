@@ -34,25 +34,28 @@ const NewAdPage = ({postAd}) => {
         if(urlInput.current.value === '') {
             urlInput.current.setCustomValidity('');
             urlInput.current.reportValidity();
-        } else {
-             const beginningRegex = VALIDATION_CONSTRAINTS.beginning[0];
-            if(beginningRegex.test(urlInput.current.value) === false) {
-                urlInput.current.setCustomValidity(VALIDATION_CONSTRAINTS.beginning[1])    
-            }
-            try{    
-                const res = await axios.get(URL + '/image?url=' + urlInput.current.value)
-                const contentType = res.headers['content-type']; 
-                const contentTypeRegex = VALIDATION_CONSTRAINTS.contentType[0];
-                if(contentTypeRegex.test(contentType)) {
-                    urlInput.current.setCustomValidity('');
-                }
-            } catch (err) {
-                urlInput.current.setCustomValidity(VALIDATION_CONSTRAINTS.contentType[1])
-            }
-            finally {
-                urlInput.current.reportValidity();
-            }
+            return;
         }
+        const beginningRegex = VALIDATION_CONSTRAINTS.beginning[0];
+        if(beginningRegex.test(urlInput.current.value) === false) {
+            urlInput.current.setCustomValidity(VALIDATION_CONSTRAINTS.beginning[1])    
+            urlInput.current.reportValidity();
+            return;
+        }
+        try {    
+            const res = await axios.get(URL + '/image?url=' + urlInput.current.value)
+            const contentType = res.headers['content-type']; 
+            const contentTypeRegex = VALIDATION_CONSTRAINTS.contentType[0];
+            if(contentTypeRegex.test(contentType)) {
+                urlInput.current.setCustomValidity('');
+            }
+        } catch (err) {
+            urlInput.current.setCustomValidity(VALIDATION_CONSTRAINTS.contentType[1])
+        }
+        finally {
+            urlInput.current.reportValidity();
+        }
+        
     }
     const debouncedChangeHandler = useMemo(() => debounce(urlHandleChange, handleChange, 1000), []); 
 
