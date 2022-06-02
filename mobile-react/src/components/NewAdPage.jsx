@@ -98,7 +98,7 @@ const NewAdPage = ({postAd}) => {
                 </Form.Group>
 
                 <Form.Group className="mb-3" controlId="url">
-                    <Form.Label>URL</Form.Label>
+                    <Form.Label>Photo URL</Form.Label>
                     <Form.Control ref={urlInput} name="url" onChange={debouncedChangeHandler} value={formState['url']} type="input" placeholder="Enter url"/>
                     <Form.Text className="text-muted">The URL field can be left empty</Form.Text>
                 </Form.Group>
