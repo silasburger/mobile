@@ -22,7 +22,7 @@ $ python3 -m venv venv
 $ pip3 install -r requirements.txt
 ```
 
-**Step 2:** Startup app
+**Step 3:** Startup app
 ```bash
 $ cd mobile-flask
 $ python3 seed.py
@@ -34,7 +34,7 @@ $ cd mobile-react
 $ yarn start
 ```
 
-**Step 5: Go to http://localhost:3000 in browser**
+**Step 4: Go to http://localhost:3000 in browser**
 
 ## Component Heirarchy 
 
