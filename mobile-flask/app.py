@@ -76,9 +76,6 @@ def request_image():
     url = request.args['url']
     headers = {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.102 Safari/537.36'}
     r = requests.get(url, headers=headers)
-    print(r.headers['content-type'])
-    print(r.status_code)
-    import pdb; pdb.set_trace()
     return Response(
         status=r.status_code,
         content_type=r.headers['content-type'])
